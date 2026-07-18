@@ -39,3 +39,36 @@ function generateReviewWorkspaces() {
 
   alert("Workspaces generated for: " + platforms.join(", "));
 }
+
+function checkSafetyCompliance(platform) {
+  var seq = app.project.activeSequence;
+  var track = seq.videoTracks[0];
+  var clips = track.clips;
+
+  var dangerZoneY = 1920 - 300;
+  var violations = [];
+
+  for (var i = 0; i < clips.numItems; i++) {
+    var clip = clips[i];
+
+    var motion = clip.components[0].properties["Position"];
+    var posY = motion.getValue()[1];
+
+    if (posY > dangerZoneY) {
+      violations.push(
+        clip.name + " (at " + clip.start.seconds.toFixed(2) + "s)"
+      );
+    }
+  }
+
+  if (violations.length > 0) {
+    alert(
+      "⚠️ WARNING: " +
+        violations.length +
+        " clip(s) are in the Danger Zone:\n\n" +
+        violations.join("\n")
+    );
+  } else {
+    alert("✅ All clips are within the safe zone!");
+  }
+}
