@@ -1,5 +1,9 @@
-const { app } = require("uxp").host;
-
 document.getElementById("drawBtn").addEventListener("click", async () => {
-  await app.evalScript("drawSafeZone('tiktok')");
+  const captionHeight = document.getElementById("captionSlider").value;
+  const deviceRatio = document.getElementById("deviceSelect").value;
+  const platform = "tiktok";
+
+  const script = `drawSafeZone("${platform}", ${captionHeight}, ${deviceRatio})`;
+
+  await app.evalScript(script);
 });
