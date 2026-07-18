@@ -1,0 +1,20 @@
+{
+  "manifestVersion": 5,
+  "id": "com.frameflow.plugin",
+  "name": "FrameFlow",
+  "version": "1.0.0",
+  "host": [
+    {
+      "app": "PPRO",
+      "minVersion": "22.0"
+    }
+  ],
+  "entrypoints": [
+    {
+      "type": "panel",
+      "id": "FrameFlowPanel",
+      "label": "Omnisafe",
+      "main": "index.html"
+    }
+  ]
+}
