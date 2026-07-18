@@ -16,6 +16,19 @@ document
 document.getElementById("checkBtn").addEventListener("click", async () => {
   const platform = document.getElementById("deviceSelect").value;
   const script = `checkSafetyCompliance("${platform}")`;
-
   await app.evalScript(script);
 });
+
+async function applyOverlay(imageName) {
+  await app.evalScript(`importAndApplyOverlay("${imageName}")`);
+}
+
+document
+  .getElementById("tiktokBtn")
+  .addEventListener("click", () => applyOverlay("tiktok.png"));
+document
+  .getElementById("ytBtn")
+  .addEventListener("click", () => applyOverlay("youtube.png"));
+document
+  .getElementById("instaBtn")
+  .addEventListener("click", () => applyOverlay("instagram.png"));
