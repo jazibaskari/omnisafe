@@ -1,7 +1,6 @@
 function drawSafeZone(platform, captionHeight, deviceRatio) {
   var offset = parseInt(captionHeight);
   var ratio = parseFloat(deviceRatio);
-
   var baseBottomMargin = 300;
   var finalBottomMargin = baseBottomMargin + offset;
 
@@ -33,7 +32,6 @@ function generateReviewWorkspaces() {
 
   for (var i = 0; i < platforms.length; i++) {
     var newSeq = app.project.addSequence(platforms[i]);
-
     newSeq.videoTracks[0].insertSequence(masterSeq, 0);
   }
 
@@ -50,7 +48,6 @@ function checkSafetyCompliance(platform) {
 
   for (var i = 0; i < clips.numItems; i++) {
     var clip = clips[i];
-
     var motion = clip.components[0].properties["Position"];
     var posY = motion.getValue()[1];
 
@@ -71,4 +68,21 @@ function checkSafetyCompliance(platform) {
   } else {
     alert("✅ All clips are within the safe zone!");
   }
+}
+
+function importAndApplyOverlay(imageName) {
+  var pluginPath = $.fileName;
+  var baseFolder = pluginPath.substring(0, pluginPath.lastIndexOf("/"));
+  var fullImagePath = baseFolder + "/assets/" + imageName;
+
+  app.project.importFiles([fullImagePath]);
+
+  var projectItems = app.project.rootItem.children;
+  var overlayClip = projectItems[projectItems.numItems - 1];
+
+  var seq = app.project.activeSequence;
+  var track = seq.videoTracks[0];
+  track.insertClip(overlayClip, seq.end);
+
+  alert("Overlay applied successfully!");
 }
