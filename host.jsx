@@ -20,3 +20,22 @@ function drawSafeZone(platform, captionHeight, deviceRatio) {
 
   return "Success";
 }
+
+function generateReviewWorkspaces() {
+  var masterSeq = app.project.activeSequence;
+
+  if (!masterSeq) {
+    alert("Please select a sequence first.");
+    return;
+  }
+
+  var platforms = ["TikTok", "Pinterest", "Snapchat"];
+
+  for (var i = 0; i < platforms.length; i++) {
+    var newSeq = app.project.addSequence(platforms[i]);
+
+    newSeq.videoTracks[0].insertSequence(masterSeq, 0);
+  }
+
+  alert("Workspaces generated for: " + platforms.join(", "));
+}
